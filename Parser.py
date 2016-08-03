@@ -17,9 +17,6 @@ def parse_all(files):
         docID, properties = parse(file)
         docs[docID] = properties
         print "Process %s : %s files" %(multiprocessing.current_process().name, i)
-        if i % 100 == 0:
-            index(docs)
-            docs = {}
 
     return docs
 
@@ -29,21 +26,21 @@ def parse(file):
     docID, gender, age, LIWC = extract_labels(file)
     with open(file_path, 'r') as f:
         file_content = f.read()
-    soup = BeautifulSoup(file_content, 'xml')
+    # soup = BeautifulSoup(file_content, 'xml')
     properties = {}
     properties['docno'] = docID
     properties['gender'] = gender
     properties['age'] = age
     properties['LIWC'] = LIWC
-    all_text = ''
-    posts = soup.findAll('post')
-    i = 0
-    for post in posts:
-        i += 1
-        # sys.stdout.write("\rProcessed %d / %d" %(i, len(posts)))
-        # sys.stdout.flush()
-        text = post.text.strip()
-        all_text += text
+    all_text = file_content
+    # posts = soup.findAll('post')
+    # i = 0
+    # for post in posts:
+    #     i += 1
+    #     # sys.stdout.write("\rProcessed %d / %d" %(i, len(posts)))
+    #     # sys.stdout.flush()
+    #     text = post.text.strip()
+    #     all_text += text
 
     properties['text'] = all_text
     pronouns, prepositions, determiners = get_pos_tags(all_text)
