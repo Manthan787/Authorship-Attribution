@@ -81,3 +81,19 @@ ES_SETTINGS = """{
     }
   }
 }"""
+
+
+TTF_BODY = """{{
+  "size":1,
+  "script_fields": {{
+     "ttf": {{
+      "script": {{
+        "inline": "_index[field][term].ttf()",
+        "params": {{
+          "field": "text",
+          "term": "{0}"
+        }}
+      }}
+    }}
+  }}
+}}"""
